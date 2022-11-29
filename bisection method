@@ -1,0 +1,33 @@
+f2= @(x)sin(x)-exp(x);
+a=-10
+b=10
+n=10
+
+mybisectionmethod(f2, a, b, n)
+
+function [x,e]= mybisectionmethod(f, a, b, n)
+    c=f(a);
+    d=f(b);
+
+    if c*d>0.0
+        error('yikes!')
+    end
+
+    for i = 1:n
+        x= (a+b)/2;
+        y= f(x);
+        if y== 0.0
+            a=x;
+            b=x;
+        break
+        end
+        if c*y<0.0
+            b=x;
+        else
+            a=x;
+        end
+    end
+
+    x=(a+b)/2;
+    e= (b-a)/2;
+end
