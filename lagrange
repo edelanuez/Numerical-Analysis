@@ -1,0 +1,77 @@
+\\\\\part 1\\\\\\\
+function [x,y] = xgrid(n)
+  x = zeros(n+1,1);
+  y= zeros(n+1,1);
+  for i= 0:n
+    x(i+1)=((2*i)/n)-1;
+    y(i+1)=(1/(1+25*x(i+1).^2));
+  end
+end
+
+
+\\\\\\\\part 2\\\\\
+function p = lagrange(u, n, x_1, y_1)
+    temp2 = [];
+    for i= 1:(n+1)
+        temp1 = [];
+        for j= 1:(n+1)
+            if i~=j
+                term = (u-x_1(j))/(x_1(i)-x_1(j)); 
+                temp1 = [temp1, term];
+            end
+        end
+        Li = prod(temp1);
+        yL = y_1(i)*Li;
+        temp2 = [temp2, yL];
+    end
+    p = sum(temp2);
+end  
+
+\\\\\\\\part 3\\\\\
+
+% plot lagrange interpolation 
+n = 32; 
+[x_1, y_1] = xgrid(n);
+
+xlist = linspace(-1,1,500);
+m = length(xlist);
+ylist = zeros(m,1);
+for i = 1:m
+    ui = xlist(i);
+    yi = lagrange(ui, n, x_1, y_1);
+    ylist(i,1) = yi;
+end
+
+% plot error of interpolation
+func = @(x) (1./(1+25.*x.^2));
+flist = func(xlist);
+error = abs(flist- ylist');
+
+
+figure;
+plot(xlist, ylist); title('Lagrange interpolation at n = 32'); xlabel('x');ylabel('y');
+hold on;
+plot(xlist, flist); title('Lagrange interpolation of Runge at n = 32'); xlabel('x');ylabel('y');
+figure;
+plot(xlist, error); title('Lagrange interpolation error of Runge at n = 32'); xlabel('x');ylabel('y');
+
+%% Plot chebyshev interpolation
+Cheb_nodes = @(k,n) cos(((2.*k-1).*pi)./(2*n));
+x_2 = Cheb_nodes(1:(n+1), n+1);
+y_2 = func(x_2);
+
+ylist2 = zeros(m,1);
+for i = 1:m
+    ui = xlist(i);
+    yi = lagrange(ui, n, x_2, y_2);
+    ylist2(i,1) = yi;
+end
+figure;
+plot(xlist, ylist2);title('interpolation of Chebyshev nodes at n = 32'); xlabel('x');ylabel('y');
+hold on;
+plot(xlist, flist);title('Chebyshev nodes for Runge at n = 32'); xlabel('x');ylabel('y');
+
+
+error2 = abs(flist- ylist2');
+figure;
+plot(xlist, error2);title('Chebyshev interpolation error at n = 32'); xlabel('x');ylabel('y');
