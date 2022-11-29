@@ -1,0 +1,22 @@
+data = importdata('least_squares_data.mat');
+
+a_1=ones([401,1]);
+t=(data(:,1));
+
+a_3temp=(data(:,2));
+a_3 = a_3temp.^2;
+A= [a_1 t t.^2];
+
+a = (A' * A) \ (A' * a_3temp);
+b = A*a;
+least_square_error = sum((b - a_3temp) .^ 2);
+
+% Plot the best fit line.
+scatter(t, a_3temp);
+xlabel('x');
+ylabel('y');
+
+hold on;
+
+% Plot the input data.
+plot(t, a(1)+ a(2).*t+a(3).*t.^2);
