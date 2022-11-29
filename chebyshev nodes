@@ -1,0 +1,71 @@
+f = @(x) 1./(1+25*x.^2);
+% plot Runge function over [-1,1];
+%x = -1:1e-3:1;
+%y = f(x);
+%figure;
+%plot(x,y); title('Runge function'); xlabel('x');ylabel('y');
+
+% find 4 Chebyshev nodes and mark them on the plot
+n = 5;
+k = 1:5; % iterator
+xc_1 = cos((2*k-1)/2/n*pi); % Chebyshev nodes
+yc_1 = f(xc_1); % function evaluated at Chebyshev nodes
+hold on;
+plot(xc_1,yc_1,'o')
+
+
+% find polynomial to interpolate data using the Chebyshev nodes
+p_1 = polyfit(xc_1,yc_1,n-1); % gives the coefficients of the polynomial of degree 4
+plot(xc_1,polyval(p_1, xc_1),'--'); % plot polynomial
+legend('Runge function','Chebyshev nodes','interpolating polynomial','location','best')
+
+%% calculate error 1
+%error_1= abs(yc_1- pc_1(xc_1,yc_1,n-1))
+
+% find 8 Chebyshev nodes and mark them on the plot
+n = 9;
+k = 1:9; % iterator
+xc_2 = cos((2*k-1)/2/n*pi); % Chebyshev nodes
+yc_2 = f(xc_2); % function evaluated at Chebyshev nodes
+hold on;
+plot(xc_2,yc_2,'square')
+
+% find polynomial to interpolate data using the Chebyshev nodes
+p_2 = polyfit(xc_2,yc_2,n-1); % gives the coefficients of the polynomial of degree 8
+plot(x,polyval(p,x),'--'); % plot polynomial
+legend('Runge function','Chebyshev nodes','interpolating polynomial','location','best')
+
+%calculate error 2
+%error_2= abs(yc_2- pc_2(xc_2,yc_2,n-1))
+
+% find 16 Chebyshev nodes and mark them on the plot
+n = 17;
+k = 1:17; % iterator
+xc_3 = cos((2*k-1)/2/n*pi); % Chebyshev nodes
+yc_3 = f(xc_3); % function evaluated at Chebyshev nodes
+hold on;
+plot(xc_3,yc_3,'diamond')
+
+% find polynomial to interpolate data using the Chebyshev nodes
+p_3 = polyfit(xc_3,yc_3,n-1); % gives the coefficients of the polynomial of degree 16
+plot(x,polyval(p,x),'--'); % plot polynomial
+legend('Runge function','Chebyshev nodes','interpolating polynomial','location','best')
+
+%calculate error 3
+%error_3= abs(yc_3- pc_3(xc_3,yc_3,n-1))
+
+% find 32 Chebyshev nodes and mark them on the plot
+n = 33;
+k = 1:33; % iterator
+xc_4 = cos((2*k-1)/2/n*pi); % Chebyshev nodes
+yc_4 = f(xc_4); % function evaluated at Chebyshev nodes
+hold on;
+plot(xc_4,yc_4,'hexagram')
+
+% find polynomial to interpolate data using the Chebyshev nodes
+p_4 = polyfit(xc_4,yc_4,n-1); % gives the coefficients of the polynomial of degree 32
+plot(x,polyval(p,x),'--'); % plot polynomial
+legend('Runge function','Chebyshev nodes','interpolating polynomial','location','best')
+
+%calculate error 4
+%error_4= abs(yc_4- pc_4(xc_4,yc_4,n-1))
