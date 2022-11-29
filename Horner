@@ -1,0 +1,21 @@
+function c_k= emariehorner(x,k,a)
+% let a be a vector of coefficients.
+% let x be the value at which we evaluate our polynomial
+% let k be the highest degree of our polynomial
+k=3
+x=100
+a= [7, -11, 12, 5]
+c_k= a(k+1);
+% To capture our constant a_4
+% In the "for loop" below, i is our iteration command. "k-1" is where we start
+% and each iteration, we subtract 1, until we reach 0 (stopping point)
+for i= k-1:-1:0
+    c_k= a(i+1)+c_k*x
+    % note that c_k is our first term and a[i+1] is us using what we did in
+    % the k-1 iteration :)
+    end
+end
+f== @(x)sin(x)-exp(x);
+a=-10
+b=10
+n=10
